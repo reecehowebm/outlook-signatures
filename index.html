@@ -1,3 +1,4 @@
+
 <!doctype html>
 <html lang="en">
 <head>
@@ -12,7 +13,18 @@
 <body>
   <main class="panel">
     <h1>Bridmet signature</h1>
-    <p class="intro">Insert your personal name with the standard Bridmet Purchasing Team signature.</p>
+    <p class="intro">Select the shared mailbox you're sending from and insert your Bridmet signature.</p>
+
+    <label for="department">Shared mailbox</label>
+    <select id="department" disabled>
+      <option value="HR" selected>Bridmet HR</option>
+      <option value="Purchasing">Purchasing</option>
+      <option value="Accounts">Accounts</option>
+      <option value="Orders">Orders</option>
+      <option value="Quality">Quality</option>
+      <option value="Dorset Screen Print Enquiries">Dorset Screen Print Enquiries</option>
+      <option value="Enquiries">Enquiries</option>
+    </select>
 
     <label for="employeeName">Your name</label>
     <input id="employeeName" type="text" autocomplete="name" placeholder="e.g. Alex Smith" disabled>
