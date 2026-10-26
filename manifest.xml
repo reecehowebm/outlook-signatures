@@ -1,55 +1,179 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<OfficeApp xmlns="http://schemas.microsoft.com/office/appforoffice/1.1"
- xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
- xmlns:bt="http://schemas.microsoft.com/office/officeappbasictypes/1.0"
- xmlns:ov="http://schemas.microsoft.com/office/mailappversionoverrides/1.1"
- xsi:type="MailApp">
- <Id>9a6d0d4f-fe3c-49b9-9cc5-08e78389145a</Id>
- <Version>1.0.0.0</Version>
- <ProviderName>Bridmet</ProviderName>
- <DefaultLocale>en-GB</DefaultLocale>
- <DisplayName DefaultValue="Bridmet Signature"/>
- <Description DefaultValue="Insert your individual name with the standard Bridmet Purchasing Team signature."/>
- <IconUrl DefaultValue="https://YOUR-STATIC-WEB-APP.azurestaticapps.net/icon-64.png"/>
- <HighResolutionIconUrl DefaultValue="https://YOUR-STATIC-WEB-APP.azurestaticapps.net/icon-128.png"/>
- <SupportUrl DefaultValue="https://YOUR-STATIC-WEB-APP.azurestaticapps.net/"/>
- <AppDomains><AppDomain>https://YOUR-STATIC-WEB-APP.azurestaticapps.net</AppDomain></AppDomains>
- <Hosts><Host Name="Mailbox"/></Hosts>
- <Requirements><Sets DefaultMinVersion="1.10"><Set Name="Mailbox" MinVersion="1.10"/></Sets></Requirements>
- <FormSettings><Form xsi:type="ItemEdit"><DesktopSettings><SourceLocation DefaultValue="https://YOUR-STATIC-WEB-APP.azurestaticapps.net/index.html"/></DesktopSettings></Form></FormSettings>
- <Permissions>ReadWriteItem</Permissions>
- <Rule xsi:type="RuleCollection" Mode="Or"><Rule xsi:type="ItemIs" ItemType="Message" FormType="Edit"/></Rule>
- <DisableEntityHighlighting>false</DisableEntityHighlighting>
- <VersionOverrides xmlns="http://schemas.microsoft.com/office/mailappversionoverrides" xsi:type="VersionOverridesV1_1">
-  <Requirements><bt:Sets DefaultMinVersion="1.10"><bt:Set Name="Mailbox" MinVersion="1.10"/></bt:Sets></Requirements>
-  <Hosts><Host xsi:type="MailHost">
-   <DesktopFormFactor>
-    <FunctionFile resid="Commands.Url"/>
-    <ExtensionPoint xsi:type="MessageComposeCommandSurface">
-     <OfficeTab id="TabDefault"><Group id="BridmetSignatureGroup">
-      <Label resid="Group.Label"/>
-      <Control xsi:type="Button" id="OpenBridmetSignature">
-       <Label resid="Button.Label"/>
-       <Supertip><Title resid="Button.Label"/><Description resid="Button.Description"/></Supertip>
-       <Icon><bt:Image size="16" resid="Icon.16"/><bt:Image size="32" resid="Icon.32"/><bt:Image size="80" resid="Icon.80"/></Icon>
-       <Action xsi:type="ShowTaskpane"><SourceLocation resid="Taskpane.Url"/></Action>
-      </Control>
-     </Group></OfficeTab>
-    </ExtensionPoint>
-   </DesktopFormFactor>
-  </Host></Hosts>
-  <Resources>
-   <bt:Images>
-    <bt:Image id="Icon.16" DefaultValue="https://YOUR-STATIC-WEB-APP.azurestaticapps.net/icon-16.png"/>
-    <bt:Image id="Icon.32" DefaultValue="https://YOUR-STATIC-WEB-APP.azurestaticapps.net/icon-32.png"/>
-    <bt:Image id="Icon.80" DefaultValue="https://YOUR-STATIC-WEB-APP.azurestaticapps.net/icon-80.png"/>
-   </bt:Images>
-   <bt:Urls>
-    <bt:Url id="Commands.Url" DefaultValue="https://YOUR-STATIC-WEB-APP.azurestaticapps.net/commands.html"/>
-    <bt:Url id="Taskpane.Url" DefaultValue="https://YOUR-STATIC-WEB-APP.azurestaticapps.net/index.html"/>
-   </bt:Urls>
-   <bt:ShortStrings><bt:String id="Group.Label" DefaultValue="Bridmet"/><bt:String id="Button.Label" DefaultValue="Insert my signature"/></bt:ShortStrings>
-   <bt:LongStrings><bt:String id="Button.Description" DefaultValue="Insert your name and the standard Bridmet Purchasing Team signature."/></bt:LongStrings>
-  </Resources>
- </VersionOverrides>
-</OfficeApp>
+
+(() => {
+  const $ = (id) => document.getElementById(id);
+  let currentEmail = "";
+
+  function escapeHtml(value) {
+    return String(value).replace(/[&<>"']/g, (ch) => ({
+      "&": "&amp;",
+      "<": "&lt;",
+      ">": "&gt;",
+      '"': "&quot;",
+      "'": "&#39;"
+    })[ch]);
+  }
+
+  function buildSignature(name, department) {
+    const cfg = window.BRIDMET_SIGNATURE_CONFIG;
+    const safeName = escapeHtml(name.trim());
+    const safeDepartment = escapeHtml(department);
+    const imageUrl =
+      "https://reecehowebm.github.io/outlook-signatures/bsi-certification.png";
+
+    const certLines = cfg.certificationLines
+      .map(line => escapeHtml(line))
+      .join("<br>");
+
+    return `
+<table role="presentation" cellpadding="0" cellspacing="0" border="0"
+  style="border-collapse:collapse;font-family:Arial,Helvetica,sans-serif;font-size:12px;color:inherit;">
+  <tr>
+    <td colspan="2" style="padding:0 0 6px 0;font-size:18px;">
+      Kind Regards
+    </td>
+  </tr>
+  <tr>
+    <td valign="top" style="padding:0 18px 0 0;vertical-align:top;">
+      <div style="margin:0 0 3px 0;font-size:18px;font-weight:bold;">
+        ${safeName}
+      </div>
+      <div style="margin:0 0 5px 0;font-size:18px;font-weight:bold;">
+        BRIDMET ${safeDepartment.toUpperCase()} TEAM
+      </div>
+      <div style="margin:0;font-size:18px;font-weight:bold;">
+        TEL: ${escapeHtml(cfg.telephone)}
+      </div>
+      <div style="margin:0;font-size:18px;">
+        <a href="${escapeHtml(cfg.website)}"
+          style="color:inherit;text-decoration:underline;">${escapeHtml(cfg.websiteLabel)}</a> | GORE
+      </div>
+      <div style="margin:0;font-size:18px;font-weight:bold;">
+        ${escapeHtml(cfg.locationLine1)}
+      </div>
+      <div style="margin:0 0 6px 0;font-size:18px;font-weight:bold;">
+        ${escapeHtml(cfg.locationLine2)}
+      </div>
+      <div style="margin:0;font-size:14px;line-height:18px;">
+        ${certLines}
+      </div>
+    </td>
+    <td valign="top" style="padding:0;vertical-align:top;">
+      <img src="${escapeHtml(imageUrl)}"
+        alt="BSI ISO certification"
+        width="280"
+        style="display:block;width:280px;height:auto;border:0;">
+    </td>
+  </tr>
+</table>
+<br>`;
+  }
+
+  function setStatus(message, isError = false) {
+    $("status").textContent = message;
+    $("status").style.color = isError ? "#b91c1c" : "#14532d";
+  }
+
+  function initialise() {
+    const office = window.Office;
+
+    if (!office || !office.context || !office.context.mailbox) {
+      $("matchNote").textContent =
+        "Open this pane from Outlook while composing an email.";
+      return;
+    }
+
+    currentEmail = (
+      office.context.mailbox.userProfile.emailAddress || ""
+    ).trim().toLowerCase();
+
+    const cfg = window.BRIDMET_SIGNATURE_CONFIG;
+
+    const matched = (cfg.users || []).find(
+      u => String(u.email).trim().toLowerCase() === currentEmail
+    );
+
+    $("employeeName").disabled = false;
+    $("department").disabled = false;
+    $("insertButton").disabled = false;
+
+    if (matched) {
+      $("employeeName").value = matched.name;
+      $("matchNote").textContent =
+        `Matched your Outlook account: ${currentEmail}`;
+    } else {
+      const displayName =
+        office.context.mailbox.userProfile.displayName || "";
+
+      $("employeeName").value = displayName;
+      $("matchNote").textContent = currentEmail
+        ? `Your Outlook account is ${currentEmail}. Check or enter your name below.`
+        : "Your Outlook name wasn't available. Enter your name below.";
+    }
+
+    $("insertButton").addEventListener("click", insertSignature);
+  }
+
+  function insertSignature() {
+    const name = $("employeeName").value.trim();
+    const department = $("department").value;
+
+    if (!name) {
+      setStatus("Enter your name before inserting the signature.", true);
+      $("employeeName").focus();
+      return;
+    }
+
+    if (!department) {
+      setStatus("Select the shared mailbox first.", true);
+      $("department").focus();
+      return;
+    }
+
+    const item = Office.context.mailbox.item;
+
+    if (
+      !item ||
+      !item.body ||
+      typeof item.body.setSelectedDataAsync !== "function"
+    ) {
+      setStatus(
+        "This Outlook compose context doesn't support inserting HTML this way. Check that you're composing a message in a supported Outlook client.",
+        true
+      );
+      return;
+    }
+
+    $("insertButton").disabled = true;
+    setStatus("Inserting signature…");
+
+    item.body.setSelectedDataAsync(
+      buildSignature(name, department),
+      { coercionType: Office.CoercionType.Html },
+      (result) => {
+        $("insertButton").disabled = false;
+
+        if (result.status === Office.AsyncResultStatus.Succeeded) {
+          setStatus(
+            `Signature inserted for ${department}. Check the layout and recipient view before sending.`
+          );
+        } else {
+          setStatus(
+            `Couldn't insert the signature: ${
+              result.error ? result.error.message : "Unknown error"
+            }`,
+            true
+          );
+        }
+      }
+    );
+  }
+
+  Office.onReady((info) => {
+    if (info.host === Office.HostType.Outlook) {
+      initialise();
+    } else {
+      $("matchNote").textContent =
+        "This add-in must be opened in Outlook.";
+    }
+  });
+})();
