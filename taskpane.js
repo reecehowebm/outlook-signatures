@@ -11,7 +11,7 @@
   function buildSignature(name) {
     const cfg = window.BRIDMET_SIGNATURE_CONFIG;
     const safeName = escapeHtml(name.trim());
-    const imageUrl = new URL("assets/bsi-certification.png", window.location.href).href;
+    const imageUrl = new URL("bsi-certification.png", window.location.href).href;
     const certLines = cfg.certificationLines.map(line =>
       `<div style="margin:0;">${escapeHtml(line)}</div>`
     ).join("");
