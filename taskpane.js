@@ -100,7 +100,8 @@ $("insertButton").disabled = false;
   }
 
   function insertSignature() {
-    const name = $("employeeName").value.trim();
+   const name = $("employeeName").value.trim();
+const department = $("department").value;
     if (!name) {
       setStatus("Enter your name before inserting the signature.", true);
       $("employeeName").focus();
@@ -116,8 +117,10 @@ $("insertButton").disabled = false;
     $("insertButton").disabled = true;
     setStatus("Inserting signature…");
 
+  
+
     item.body.setSelectedDataAsync(
-      buildSignature(name),
+      buildSignature(name, department),
       { coercionType: Office.CoercionType.Html },
       (result) => {
         $("insertButton").disabled = false;
@@ -128,10 +131,11 @@ $("insertButton").disabled = false;
         }
       }
     );
-  }
+  } // Closes insertSignature()
 
   Office.onReady((info) => {
     if (info.host === Office.HostType.Outlook) initialise();
     else $("matchNote").textContent = "This add-in must be opened in Outlook.";
   });
-})();
+})(); // Closes the outer function
+
