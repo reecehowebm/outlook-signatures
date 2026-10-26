@@ -12,13 +12,14 @@
 
 function buildSignature(name, department) {
   const cfg = window.BRIDMET_SIGNATURE_CONFIG;
-  const safeName = escapeHtml(name.trim());
   const imageUrl = "https://reecehowebm.github.io/outlook-signatures/bsi-certification.png";
 
   const certLines = cfg.certificationLines
     .map(line => escapeHtml(line))
     .join("<br>");
-
+const nameParts = name.trim().split(/\s+/);
+const firstName = escapeHtml(nameParts.shift() || "");
+const lastName = escapeHtml(nameParts.join(" "));
   return `
 <table role="presentation" cellpadding="0" cellspacing="0" border="0"
 style="border-collapse:collapse;font-family:Arial,Helvetica,sans-serif;font-size:12px;color:#334155;">
@@ -29,15 +30,15 @@ style="border-collapse:collapse;font-family:Arial,Helvetica,sans-serif;font-size
   </tr>
   <tr>
     <td valign="top" style="padding:0 18px 0 0;vertical-align:top;">
-      <div style="margin:0 0 3px 0;font-size:18px;font-weight:bold;color:#1688B8;">
-        ${safeName}
-      </div>
+      <div style="margin:0;font-size:18px;color:#52616B;">
+  ${firstName} <span style="font-weight:bold;color:#334155;">${lastName}</span>
+</div>
       <div style="margin:0 0 5px 0;font-size:18px;font-weight:bold;color:#008C95;">
        BRIDMET ${escapeHtml(department).toUpperCase()} TEAM
       </div>
-      <div style="margin:0;font-size:18px;font-weight:bold;color:#1688B8;">
-        TEL: ${escapeHtml(cfg.telephone)}
-      </div>
+      <div style="margin:0;font-size:18px;font-weight:bold;color:#008C95;">
+  TEL: ${escapeHtml(cfg.telephone)}
+</div>
      
       <div style="margin:0;font-size:18px;color:#008C95;">
         <a href="${escapeHtml(cfg.website)}" style="color:#008C95;text-decoration:underline;">${escapeHtml(cfg.websiteLabel)}</a> | GORE
