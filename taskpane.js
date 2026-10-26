@@ -23,33 +23,33 @@ function buildSignature(name) {
 <table role="presentation" cellpadding="0" cellspacing="0" border="0"
   style="border-collapse:collapse;font-family:Arial,Helvetica,sans-serif;font-size:12px;color:inherit;">
   <tr>
-    <td colspan="2" style="padding:0 0 6px 0;font-size:12px;">
+    <td colspan="2" style="padding:0 0 6px 0;font-size:14px;">
       Kind Regards
     </td>
   </tr>
   <tr>
     <td valign="top" style="padding:0 14px 0 0;vertical-align:top;">
-      <div style="margin:0 0 3px 0;font-size:12px;font-weight:bold;">
+      <div style="margin:0 0 3px 0;font-size:14px;font-weight:bold;">
         ${safeName}
       </div>
-      <div style="margin:0 0 5px 0;font-size:12px;font-weight:bold;">
+      <div style="margin:0 0 5px 0;font-size:14px;font-weight:bold;">
         BRIDMET PURCHASING TEAM
       </div>
-      <div style="margin:0;font-size:12px;font-weight:bold;">
+      <div style="margin:0;font-size:14px;font-weight:bold;">
         TEL: ${escapeHtml(cfg.telephone)}
       </div>
-      <div style="margin:0;font-size:12px;">
+      <div style="margin:0;font-size:14px;">
         <a href="${escapeHtml(cfg.website)}" style="color:inherit;text-decoration:underline;">${escapeHtml(cfg.websiteLabel)}</a> | GORE
       </div>
-      <div style="margin:0;font-size:12px;font-weight:bold;">
+      <div style="margin:0;font-size:14px;font-weight:bold;">
         ${escapeHtml(cfg.locationLine1)}
       </div>
-      <div style="margin:0 0 6px 0;font-size:12px;font-weight:bold;">
+      <div style="margin:0 0 6px 0;font-size:14px;font-weight:bold;">
         ${escapeHtml(cfg.locationLine2)}
       </div>
-      <div style="margin:0;font-size:11px;line-height:14px;">
-        ${certLines}
-      </div>
+     <div style="margin:0;font-size:12px;line-height:16px;">
+  ${certLines}
+</div>
     </td>
     <td valign="top" style="padding:0;vertical-align:top;">
       <img src="${escapeHtml(imageUrl)}"
