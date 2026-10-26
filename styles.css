@@ -1,0 +1,26 @@
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  padding: 18px;
+  color: #202124;
+  background: #f7f8f8;
+  font: 14px/1.45 "Segoe UI", Arial, sans-serif;
+}
+.panel { max-width: 440px; margin: 0 auto; }
+h1 { margin: 0 0 8px; font-size: 21px; font-weight: 650; }
+.intro { margin: 0 0 18px; color: #4b5563; }
+label { display: block; margin-bottom: 6px; font-weight: 600; }
+input {
+  width: 100%; padding: 10px 11px; border: 1px solid #aeb7c2;
+  border-radius: 4px; background: #fff; color: #111827; font: inherit;
+}
+input:focus { outline: 2px solid #168b8b; outline-offset: 1px; }
+button {
+  width: 100%; margin-top: 12px; padding: 11px 14px; border: 0;
+  border-radius: 4px; color: #fff; background: #176b70; font: 600 14px "Segoe UI", Arial, sans-serif;
+  cursor: pointer;
+}
+button:disabled, input:disabled { opacity: .55; cursor: not-allowed; }
+.note, .status { min-height: 20px; margin: 8px 0; color: #475569; overflow-wrap: anywhere; }
+.status { color: #14532d; }
+.small { margin-top: 18px; font-size: 12px; color: #596579; }

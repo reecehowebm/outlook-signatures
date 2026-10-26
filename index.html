@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Bridmet Signature</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="https://appsforoffice.microsoft.com/lib/1/hosted/office.js"></script>
+  <script src="config.js"></script>
+  <script src="taskpane.js" defer></script>
+</head>
+<body>
+  <main class="panel">
+    <h1>Bridmet signature</h1>
+    <p class="intro">Insert your personal name with the standard Bridmet Purchasing Team signature.</p>
+
+    <label for="employeeName">Your name</label>
+    <input id="employeeName" type="text" autocomplete="name" placeholder="e.g. Alex Smith" disabled>
+
+    <p id="matchNote" class="note">Checking your Outlook account…</p>
+    <button id="insertButton" type="button" disabled>Insert my signature</button>
+    <p id="status" class="status" role="status" aria-live="polite"></p>
+    <p class="small">Check the message before sending. The name is a convenience field and is not identity verification.</p>
+  </main>
+</body>
+</html>
