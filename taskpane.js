@@ -9,43 +9,59 @@
   }
 
 
+
 function buildSignature(name) {
   const cfg = window.BRIDMET_SIGNATURE_CONFIG;
   const safeName = escapeHtml(name.trim());
   const imageUrl = "https://reecehowebm.github.io/outlook-signatures/bsi-certification.png";
 
-  const certLines = cfg.certificationLines.map(line =>
-    `<div style="margin:0 0 2px 0;">${escapeHtml(line)}</div>`
-  ).join("");
+  const certLines = cfg.certificationLines
+    .map(line => escapeHtml(line))
+    .join("<br>");
 
   return `
 <table role="presentation" cellpadding="0" cellspacing="0" border="0"
- style="border-collapse:collapse;font-family:Arial,Helvetica,sans-serif;font-size:12px;line-height:16px;">
- <tr>
-  <td colspan="2" style="padding:0 0 8px 0;font-size:12px;line-height:16px;">Kind Regards</td>
- </tr>
- <tr>
-  <td valign="top" style="width:350px;padding:0 12px 0 0;">
-   <div style="font-weight:bold;margin:0 0 5px 0;">${safeName}</div>
-   <div style="font-weight:bold;margin:0 0 8px 0;">BRIDMET PURCHASING TEAM</div>
-   <div style="font-weight:bold;margin:0;">TEL: ${escapeHtml(cfg.telephone)}</div>
-   <div style="margin:0;">
-    <a href="${escapeHtml(cfg.website)}" style="text-decoration:underline;">${escapeHtml(cfg.websiteLabel)}</a> | GORE
-   </div>
-   <div style="font-weight:bold;margin:0;">${escapeHtml(cfg.locationLine1)}</div>
-   <div style="font-weight:bold;margin:0 0 6px 0;">${escapeHtml(cfg.locationLine2)}</div>
-   <div style="font-size:11px;line-height:14px;">${certLines}</div>
-  </td>
-  <td valign="top" style="padding:0;">
-   <img src="${escapeHtml(imageUrl)}"
-    alt="BSI ISO 9001, ISO 14001 and ISO 45001 certification"
-    width="292"
-    style="display:block;width:292px;height:auto;border:0;margin:0;">
-  </td>
- </tr>
+  style="border-collapse:collapse;font-family:Arial,Helvetica,sans-serif;font-size:12px;color:inherit;">
+  <tr>
+    <td colspan="2" style="padding:0 0 6px 0;font-size:12px;">
+      Kind Regards
+    </td>
+  </tr>
+  <tr>
+    <td valign="top" style="padding:0 14px 0 0;vertical-align:top;">
+      <div style="margin:0 0 3px 0;font-size:12px;font-weight:bold;">
+        ${safeName}
+      </div>
+      <div style="margin:0 0 5px 0;font-size:12px;font-weight:bold;">
+        BRIDMET PURCHASING TEAM
+      </div>
+      <div style="margin:0;font-size:12px;font-weight:bold;">
+        TEL: ${escapeHtml(cfg.telephone)}
+      </div>
+      <div style="margin:0;font-size:12px;">
+        <a href="${escapeHtml(cfg.website)}" style="color:inherit;text-decoration:underline;">${escapeHtml(cfg.websiteLabel)}</a> | GORE
+      </div>
+      <div style="margin:0;font-size:12px;font-weight:bold;">
+        ${escapeHtml(cfg.locationLine1)}
+      </div>
+      <div style="margin:0 0 6px 0;font-size:12px;font-weight:bold;">
+        ${escapeHtml(cfg.locationLine2)}
+      </div>
+      <div style="margin:0;font-size:11px;line-height:14px;">
+        ${certLines}
+      </div>
+    </td>
+    <td valign="top" style="padding:0;vertical-align:top;">
+      <img src="${escapeHtml(imageUrl)}"
+        alt="BSI ISO certification"
+        width="220"
+        style="display:block;width:220px;height:auto;border:0;">
+    </td>
+  </tr>
 </table>
 <br>`;
 }
+
 
 
   function setStatus(message, isError = false) {
