@@ -21,7 +21,7 @@ function buildSignature(name, department) {
 
   return `
 <table role="presentation" cellpadding="0" cellspacing="0" border="0"
-  style="border-collapse:collapse;font-family:Arial,Helvetica,sans-serif;font-size:12px;color:inherit;">
+style="border-collapse:collapse;font-family:Arial,Helvetica,sans-serif;font-size:12px;color:#334155;">
   <tr>
     <td colspan="2" style="padding:0 0 6px 0;font-size:18px;">
       Kind Regards
@@ -29,25 +29,27 @@ function buildSignature(name, department) {
   </tr>
   <tr>
     <td valign="top" style="padding:0 18px 0 0;vertical-align:top;">
-      <div style="margin:0 0 3px 0;font-size:18px;font-weight:bold;">
+      <div style="margin:0 0 3px 0;font-size:18px;font-weight:bold;color:#1688B8;">
         ${safeName}
       </div>
-      <div style="margin:0 0 5px 0;font-size:18px;font-weight:bold;">
+      <div style="margin:0 0 5px 0;font-size:18px;font-weight:bold;color:#008C95;">
        BRIDMET ${escapeHtml(department).toUpperCase()} TEAM
       </div>
-      <div style="margin:0;font-size:18px;font-weight:bold;">
+      <div style="margin:0;font-size:18px;font-weight:bold;color:#1688B8;">
         TEL: ${escapeHtml(cfg.telephone)}
       </div>
-      <div style="margin:0;font-size:18px;">
-        <a href="${escapeHtml(cfg.website)}" style="color:inherit;text-decoration:underline;">${escapeHtml(cfg.websiteLabel)}</a> | GORE
+     
+      <div style="margin:0;font-size:18px;color:#008C95;">
+        <a href="${escapeHtml(cfg.website)}" style="color:#008C95;text-decoration:underline;">${escapeHtml(cfg.websiteLabel)}</a> | GORE
       </div>
+
       <div style="margin:0;font-size:18px;font-weight:bold;">
         ${escapeHtml(cfg.locationLine1)}
       </div>
       <div style="margin:0 0 6px 0;font-size:18px;font-weight:bold;">
         ${escapeHtml(cfg.locationLine2)}
       </div>
-     <div style="margin:0;font-size:14px;line-height:18px;">
+    <div style="margin:0;font-size:14px;line-height:18px;color:#52616B;">
   ${certLines}
 </div>
     </td>
