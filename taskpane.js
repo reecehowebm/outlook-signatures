@@ -10,7 +10,7 @@
 
 
 
-function buildSignature(name) {
+function buildSignature(name, department) {
   const cfg = window.BRIDMET_SIGNATURE_CONFIG;
   const safeName = escapeHtml(name.trim());
   const imageUrl = "https://reecehowebm.github.io/outlook-signatures/bsi-certification.png";
@@ -33,7 +33,7 @@ function buildSignature(name) {
         ${safeName}
       </div>
       <div style="margin:0 0 5px 0;font-size:18px;font-weight:bold;">
-        BRIDMET PURCHASING TEAM
+       BRIDMET ${escapeHtml(department).toUpperCase()} TEAM
       </div>
       <div style="margin:0;font-size:18px;font-weight:bold;">
         TEL: ${escapeHtml(cfg.telephone)}
@@ -82,7 +82,8 @@ function buildSignature(name) {
     );
 
     $("employeeName").disabled = false;
-    $("insertButton").disabled = false;
+$("department").disabled = false;
+$("insertButton").disabled = false;
 
     if (matched) {
       $("employeeName").value = matched.name;
